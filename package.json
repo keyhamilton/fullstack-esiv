@@ -1,0 +1,25 @@
+{
+  "name": "fullstack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch --env-file .env src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Sistema de gerenciamento acadêmico",
+  "dependencies": {
+    "@fastify/autoload": "^5.10.0",
+    "@fastify/type-provider-typebox": "^4.1.0",
+    "@prisma/client": "^5.18.0",
+    "ajv": "^8.17.1",
+    "fastify": "^4.28.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.2.0",
+    "prisma": "^5.18.0",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
+}
