@@ -3,6 +3,7 @@ import { getAlunoById } from "../services/aluno_services/getAlunoService";
 import { addAlunoService } from "../services/aluno_services/addAlunoService";
 import { deleteAlunoService } from "../services/aluno_services/deleteAlunoService";
 import { updateAlunoService } from "../services/aluno_services/updateAlunoService";
+import { Unknown } from "@fastify/type-provider-typebox";
 
 
 
@@ -36,7 +37,7 @@ export default function alunosController(fastify: FastifyInstance) {
         reply.code(404).send(`{
             "erro": "404",
             "message": "not found"
-            }`)
+        }`)
         
     }
     );
@@ -45,16 +46,33 @@ export default function alunosController(fastify: FastifyInstance) {
 
     fastify.post('/alunos', async(request, reply) => {
         const { nome, email } = request.body as Aluno;
-        const result = await addAlunoService(nome, email);
-        reply.code(201).send(result)
+        try {
+            const result = await addAlunoService(nome, email);
+            reply.code(201).send(result)
+            
+        } catch (error) {
+            reply.code(400).send(`{
+                "erro": "400",
+                "message": "bad request"
+            }`)
+            
+        }
     })
 
     // update aluno
 
     fastify.patch('/alunos', async(request, reply)=>{
         const aluno: Aluno = request.body as Aluno;
-        const result = await updateAlunoService(aluno);
-        reply.code(200).send(result)
+        try {
+            const result = await updateAlunoService(aluno);
+            reply.code(200).send(result)
+            
+        } catch (error) {
+            reply.code(400).send(`{
+                "erro": "400",
+                "message": "bad request"
+            }`)
+        }
     } )
 
     
