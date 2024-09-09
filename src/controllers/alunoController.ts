@@ -3,7 +3,7 @@ import { getAlunoById } from "../services/aluno_services/getAlunoService";
 import { addAlunoService } from "../services/aluno_services/addAlunoService";
 import { deleteAlunoService } from "../services/aluno_services/deleteAlunoService";
 import { updateAlunoService } from "../services/aluno_services/updateAlunoService";
-import { Unknown } from "@fastify/type-provider-typebox";
+
 
 
 
