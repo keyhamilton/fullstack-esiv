@@ -1,6 +1,6 @@
 import prisma from "../../lib/prisma";
 
-export async function updateAlunoService(aluno: Aluno) {
+export async function updateAlunoService(aluno: User) {
     
     if (aluno.email && aluno.nome) {
     

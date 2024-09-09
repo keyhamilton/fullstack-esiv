@@ -12,7 +12,7 @@ export default function alunosController(fastify: FastifyInstance) {
     // delete aluno
 
     fastify.delete('/purge/alunos/:id', async (request, reply) => {
-        const aluno: Aluno = request.params as Aluno
+        const aluno: User = request.params as User
         try {
             const deleted = await deleteAlunoService(aluno.id) 
             reply.code(202).send(`{
@@ -29,7 +29,7 @@ export default function alunosController(fastify: FastifyInstance) {
 
     // encontra um aluno pelo id
     fastify.get('/alunos/:id', async (request, reply) => {
-        const aluno: Aluno = request.params as Aluno;
+        const aluno: User = request.params as User;
         const result = await getAlunoById(aluno.id);
         if (result) {
             reply.code(200).send(result)
@@ -45,7 +45,7 @@ export default function alunosController(fastify: FastifyInstance) {
     // add aluno
 
     fastify.post('/alunos', async(request, reply) => {
-        const { nome, email } = request.body as Aluno;
+        const { nome, email } = request.body as User;
         try {
             const result = await addAlunoService(nome, email);
             reply.code(201).send(result)
@@ -62,7 +62,7 @@ export default function alunosController(fastify: FastifyInstance) {
     // update aluno
 
     fastify.patch('/alunos', async(request, reply)=>{
-        const aluno: Aluno = request.body as Aluno;
+        const aluno: User = request.body as User;
         try {
             const result = await updateAlunoService(aluno);
             reply.code(200).send(result)
