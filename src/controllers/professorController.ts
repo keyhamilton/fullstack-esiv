@@ -1,5 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { getProfessorById } from "../services/professor_services/getProfessorService";
+import addProfessorService from "../services/professor_services/addProfessorService";
+
 
 
 export default function professorController (fastify: FastifyInstance) {
@@ -16,5 +18,18 @@ export default function professorController (fastify: FastifyInstance) {
             "erro": "404",
             "message": "not found"
         }`)
+    })
+
+    fastify.post('/professores', async(request, reply)=> {
+        const { nome, email } = request.body as User;
+        try {
+            const professorAdded = await addProfessorService(nome, email)
+            reply.code(201).send(professorAdded)
+        } catch (error) {
+            reply.code(400).send(`{
+                "erro": "400",
+                "message": "bad request"
+            }`)
+        }
     })
 }
