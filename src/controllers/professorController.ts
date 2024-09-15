@@ -3,6 +3,7 @@ import { getProfessorById } from "../services/professor_services/getProfessorSer
 import addProfessorService from "../services/professor_services/addProfessorService";
 import deleteProfessorService from "../services/professor_services/deleteProfessorService";
 import updateProfessorService from "../services/professor_services/updateProfessorService";
+import { badRequest, notFound } from "../lib/errorMessage";
 
 
 
@@ -16,10 +17,7 @@ export default function professorController (fastify: FastifyInstance) {
        if (professorFound) {
             reply.code(200).send(professorFound)
        }
-        reply.code(404).send(`{
-            "erro": "404",
-            "message": "not found"
-        }`)
+        reply.code(404).send(notFound)
     }) //caso o recurso nao exista, responde com uma mensagem de erro
 
 
@@ -30,10 +28,7 @@ export default function professorController (fastify: FastifyInstance) {
             const professorAdded = await addProfessorService(nome, email)
             reply.code(201).send(professorAdded)
         } catch (error) {
-            reply.code(400).send(`{
-                "erro": "400",
-                "message": "bad request"
-            }`)
+            reply.code(400).send(badRequest)
         }
     })
 
@@ -44,11 +39,7 @@ export default function professorController (fastify: FastifyInstance) {
             const deletedProfessor = await deleteProfessorService(professor)
             reply.code(200).send(deletedProfessor)
         } catch (error) {
-            reply.code(404).send(`{
-                "erro": "404",
-                "message": "not found"
-            }`)
-            
+            reply.code(404).send(notFound)    
         }
     })
 
@@ -60,10 +51,7 @@ export default function professorController (fastify: FastifyInstance) {
            const updatedProfessor = await updateProfessorService(professor)
            reply.code(200).send(updatedProfessor)
         } catch (error) {
-            reply.code(400).send(`{
-                "erro": "400",
-                "message": "bad request"
-            }`)
+            reply.code(400).send(badRequest)
         }
     })
 }
