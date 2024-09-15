@@ -3,6 +3,7 @@ import { getAlunoById } from "../services/aluno_services/getAlunoService";
 import { addAlunoService } from "../services/aluno_services/addAlunoService";
 import { deleteAlunoService } from "../services/aluno_services/deleteAlunoService";
 import { updateAlunoService } from "../services/aluno_services/updateAlunoService";
+import { badRequest, notFound } from "../lib/errorMessage";
 
 
 
@@ -20,10 +21,7 @@ export default function alunosController(fastify: FastifyInstance) {
             }`)    
             
         } catch (error) {
-            reply.code(404).send(`{
-                "erro": "404",
-                "message": "not found"
-            }`)  
+            reply.code(404).send(notFound)  
         }
     })
 
@@ -34,10 +32,7 @@ export default function alunosController(fastify: FastifyInstance) {
         if (result) {
             reply.code(200).send(result)
         }
-        reply.code(404).send(`{
-            "erro": "404",
-            "message": "not found"
-        }`)
+        reply.code(404).send(notFound)
         
     }
     );
@@ -51,10 +46,7 @@ export default function alunosController(fastify: FastifyInstance) {
             reply.code(201).send(result)
             
         } catch (error) {
-            reply.code(400).send(`{
-                "erro": "400",
-                "message": "bad request"
-            }`)
+            reply.code(400).send(badRequest)
             
         }
     })
@@ -68,10 +60,7 @@ export default function alunosController(fastify: FastifyInstance) {
             reply.code(200).send(result)
             
         } catch (error) {
-            reply.code(400).send(`{
-                "erro": "400",
-                "message": "bad request"
-            }`)
+            reply.code(400).send(badRequest)
         }
     } )
 
