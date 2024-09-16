@@ -1,7 +1,8 @@
 import { FastifyInstance } from "fastify";
 import getDisciplinasService from "../services/disciplina_services/getDisciplinasService";
 import getDisciplinaByIdService from "../services/disciplina_services/getDisciplinaByIdService";
-import { notFound } from "../lib/errorMessage";
+import { badRequest, notFound } from "../lib/errorMessage";
+import addDisciplinaService from "../services/disciplina_services/addDisciplinaService";
 
 export default function disciplinaController(fastify: FastifyInstance) {
     // retorna uma lista de todas as disciplinas, caso existam
@@ -26,6 +27,20 @@ export default function disciplinaController(fastify: FastifyInstance) {
             reply.code(200).send(disciplinaFound);
         }
         reply.code(404).send(notFound);
+    })
+
+    fastify.post('/disciplinas', async(request, reply)=>{
+        const { nome, professorId} = request.body as Course;
+        try {
+            const disciplinaCreated = await addDisciplinaService(nome, professorId);
+            reply.code(201).send(disciplinaCreated)  
+        } catch (error) {
+            reply.code(400).send({
+                erro: 400,
+                message: 'Recurso já existe ou estão faltando dados'
+            })
+        }
+        
     })
 
 }

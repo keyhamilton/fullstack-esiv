@@ -17,7 +17,7 @@ model Disciplina {
 
   professor Professor @relation(fields: [professorId], references: [id])
 
-  professorId String
+  professorId String @unique
 
   alunos Aluno[]
 

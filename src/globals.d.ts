@@ -15,7 +15,7 @@ declare global {
 declare global {
     interface Course {
         id: string
-        mome: string
+        nome: string
         professorId: string
         alunos: Aluno[]
     }
