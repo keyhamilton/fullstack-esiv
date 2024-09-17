@@ -3,6 +3,8 @@ import getDisciplinasService from "../services/disciplina_services/getDisciplina
 import getDisciplinaByIdService from "../services/disciplina_services/getDisciplinaByIdService";
 import { badRequest, notFound } from "../lib/errorMessage";
 import addDisciplinaService from "../services/disciplina_services/addDisciplinaService";
+import updateDisciplinaService from "../services/disciplina_services/updateDisciplinaService";
+import deleteDisciplinaService from "../services/disciplina_services/deleteDisciplinaService";
 
 export default function disciplinaController(fastify: FastifyInstance) {
     // retorna uma lista de todas as disciplinas, caso existam
@@ -12,7 +14,7 @@ export default function disciplinaController(fastify: FastifyInstance) {
             reply.code(200).send(disciplinasFound);
         }
         reply.code(404).send({
-            erro: '404', 
+            erro: 404, 
             message: 'Não existem disciplinas cadastradas'
         })
     })
@@ -41,6 +43,29 @@ export default function disciplinaController(fastify: FastifyInstance) {
             })
         }
         
+    })
+
+    fastify.patch('/disciplinas', async(request, reply)=> {
+        const disciplina = request.body as Course;
+        try {
+            const updatedDisciplina = await updateDisciplinaService(disciplina);
+            reply.code(200).send(updatedDisciplina);
+        } catch (error) {
+            reply.code(400).send(badRequest);
+        }
+    })
+
+    fastify.delete('/disciplinas', async (request, reply) => {
+        const disciplina = request.body as Course;
+        try {
+            const deletedDisciplina = await deleteDisciplinaService(disciplina);
+            reply.code(200).send(deletedDisciplina);
+        } catch (error) {
+            reply.code(400).send({
+                erro: 400,
+                message: 'Recurso não existe ou os dados informados estão incorretos'
+            })
+        }
     })
 
 }
