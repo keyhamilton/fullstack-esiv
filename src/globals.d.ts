@@ -21,5 +21,11 @@ declare global {
     }
 }
 
+declare global {
+    interface Matricula {
+        alunoId: string
+        disciplinaId: string
+    }
+}
 
 
