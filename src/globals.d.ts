@@ -1,4 +1,4 @@
-import { Disciplina } from "@prisma/client"
+import { Aluno, Disciplina } from "@prisma/client"
 
 
 
@@ -10,6 +10,15 @@ declare global {
         disciplinas: Disciplina[]
     }
 
+}
+
+declare global {
+    interface Course {
+        id: string
+        nome: string
+        professorId: string
+        alunos: Aluno[]
+    }
 }
 
 
