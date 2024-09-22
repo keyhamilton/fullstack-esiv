@@ -21,6 +21,8 @@ model Disciplina {
 
   alunos Aluno[]
 
+  notas Notas[]
+
   @@map("disciplina")
 }
 
@@ -32,6 +34,8 @@ model Aluno {
   email String @unique
 
   disciplinas Disciplina[]
+
+  notas   Notas[]
 
   @@map("aluno")
 }
@@ -46,4 +50,22 @@ model Professor {
   disciplinas Disciplina[]
 
   @@map("professor")
+}
+
+model Notas {
+  aluno Aluno @relation(fields: [alunoId], references: [id])
+
+  alunoId String @unique
+
+  disciplina Disciplina @relation(fields: [disciplinaId], references: [id])
+
+  disciplinaId String @unique
+
+  notaUm Float
+
+  notaDois Float
+
+  notaTres Float
+
+  @@map("notas")
 }
